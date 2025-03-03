@@ -1,32 +1,29 @@
-<!-- In your React app's public/index.html -->
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Web site created using create-react-app" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>React App</title>
-    <style>
-      /* Ensure the document doesn’t force a height based on viewport */
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: auto;
-        overflow-y: auto;
-      }
-      /* Make sure your main container doesn’t use 100vh if not needed */
-      #root {
-        height: auto;
-      }
-    </style>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!-- (No additional resize script here) -->
-  </body>
-</html>
+<!-- Include the iframe-resizer script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.min.js"></script>
+
+<iframe
+  id="myIframe"
+  src="https://custom-signature-generator.vercel.app"
+  frameborder="0"
+  style="width: 1px; min-width: 100%;"
+  title="React App">
+</iframe>
+
+<script>
+  iFrameResize({
+    log: true,
+    checkOrigin: false,
+    heightCalculationMethod: 'max' // Try alternatives if needed
+  }, '#myIframe');
+
+  // Optionally, trigger a delayed resize to catch late content
+  setTimeout(() => {
+    const iframe = document.getElementById('myIframe');
+    if (iframe && iframe.iFrameResizer) {
+      iframe.iFrameResizer.resize();
+    }
+  }, 1000);
+</script>
+
+this is it please modify it 
+
