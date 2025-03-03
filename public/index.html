@@ -1,14 +1,26 @@
-<!-- In your React app's public/index.html, just before the closing </body> tag -->
-<script>
-  function sendHeight() {
-    // Get the height of the document
-    const height = document.documentElement.scrollHeight;
-    // Post the height to the parent window
-    window.parent.postMessage({ type: 'setHeight', height: height }, '*');
-  }
-  
-  // Send the height on load
-  window.addEventListener('load', sendHeight);
-  // Optionally, send the height on resize if your content changes dynamically
-  window.addEventListener('resize', sendHeight);
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!-- This script sends the height to the parent -->
+    <script>
+      function sendHeight() {
+        var height = document.documentElement.scrollHeight;
+        window.parent.postMessage({ type: 'setHeight', height: height }, '*');
+      }
+      window.addEventListener('load', sendHeight);
+      window.addEventListener('resize', sendHeight);
+    </script>
+  </body>
+</html>
