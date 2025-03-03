@@ -1,3 +1,4 @@
+<!-- In your React app's public/index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,29 +10,23 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>React App</title>
+    <style>
+      /* Ensure the document doesn’t force a height based on viewport */
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: auto;
+        overflow-y: auto;
+      }
+      /* Make sure your main container doesn’t use 100vh if not needed */
+      #root {
+        height: auto;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!-- This script sends the height to the parent -->
-    <script>
-      var previousHeight = 0;
-      function sendHeight() {
-        var height = document.documentElement.scrollHeight;
-        // Only post a message if the height change is greater than 10px
-        if (Math.abs(height - previousHeight) > 10) {
-          window.parent.postMessage({ type: 'setHeight', height: height }, '*');
-          previousHeight = height;
-        }
-      }
-      // Send height on load and resize
-      window.addEventListener('load', sendHeight);
-      window.addEventListener('resize', sendHeight);
-      // Use a MutationObserver to detect dynamic content changes
-      var observer = new MutationObserver(function() {
-        sendHeight();
-      });
-      observer.observe(document.body, { childList: true, subtree: true, characterData: true });
-    </script>
+    <!-- (No additional resize script here) -->
   </body>
 </html>
