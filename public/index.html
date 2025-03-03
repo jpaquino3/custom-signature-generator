@@ -15,12 +15,23 @@
     <div id="root"></div>
     <!-- This script sends the height to the parent -->
     <script>
+      var previousHeight = 0;
       function sendHeight() {
         var height = document.documentElement.scrollHeight;
-        window.parent.postMessage({ type: 'setHeight', height: height }, '*');
+        // Only post a message if the height change is greater than 10px
+        if (Math.abs(height - previousHeight) > 10) {
+          window.parent.postMessage({ type: 'setHeight', height: height }, '*');
+          previousHeight = height;
+        }
       }
+      // Send height on load and resize
       window.addEventListener('load', sendHeight);
       window.addEventListener('resize', sendHeight);
+      // Use a MutationObserver to detect dynamic content changes
+      var observer = new MutationObserver(function() {
+        sendHeight();
+      });
+      observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     </script>
   </body>
 </html>
