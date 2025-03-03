@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- … meta and links … -->
-    <title>React App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <!-- Include the iframe-resizer contentWindow script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.contentWindow.min.js"></script>
-  </body>
-</html>
+<!-- In your React app's public/index.html, just before the closing </body> tag -->
+<script>
+  function sendHeight() {
+    // Get the height of the document
+    const height = document.documentElement.scrollHeight;
+    // Post the height to the parent window
+    window.parent.postMessage({ type: 'setHeight', height: height }, '*');
+  }
+  
+  // Send the height on load
+  window.addEventListener('load', sendHeight);
+  // Optionally, send the height on resize if your content changes dynamically
+  window.addEventListener('resize', sendHeight);
+</script>
